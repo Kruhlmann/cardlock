@@ -16,18 +16,28 @@ export class LockCardDaemon extends CardDaemon {
     }
 
     protected on_card_inserted(event: CardEvent): void {
-        if (event.card.getAtr() !== this.card_id) {
-            return;
+        if (this.is_card_event_valid(event)) {
+            console.log(`Unlocking`);
+            exec(this.unlock_cmd);
         }
-        console.log(`Unlocking`);
-        exec(this.unlock_cmd);
     }
 
     protected on_card_removed(event: CardEvent): void {
-        if (event.card.getAtr() !== this.card_id) {
-            return;
+        if (this.is_card_event_valid(event)) {
+            console.log(`Locking`);
+            exec(this.lock_cmd);
         }
-        console.log(`Locking`);
-        exec(this.lock_cmd);
+    }
+
+    protected is_card_event_valid(event: CardEvent): boolean {
+        try {
+            const card_id = event.card.getAtr();
+            const card_id_exists = card_id !== undefined:
+            const card_is_known = card_id === this.card_id;
+            return card_id_exists && card_is_known;
+        } catch {
+            return false;
+        }
+
     }
 }

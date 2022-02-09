@@ -1,5 +1,5 @@
 export type CardEvent = {
     card: {
-        getAtr(): string;
+        getAtr(): string | undefined;
     };
 }
