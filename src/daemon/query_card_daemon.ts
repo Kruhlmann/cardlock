@@ -1,5 +1,5 @@
 import { CardDaemon } from "./card_daemon";
-import { CardEvent } from "./card_event";
+import { CardEvent } from "./event";
 
 export class QueryCardDaemon extends CardDaemon {
     protected on_card_inserted(event: CardEvent): void {

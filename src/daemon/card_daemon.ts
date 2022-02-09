@@ -1,8 +1,7 @@
 import { EventEmitter } from "node:events";
 import { Devices } from "smartcard";
-
-import { CardEvent } from "./card_event";
-import { CardReaderEvent } from "./card_reader_event";
+import { CardEvent } from "./event";
+import { CardReaderEvent } from "./event";
 
 export abstract class CardDaemon {
     protected card_reader: EventEmitter;
