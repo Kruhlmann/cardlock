@@ -1,13 +1,12 @@
 import { EventEmitter } from "node:events";
-import { Devices } from "smartcard";
 import { CardEvent } from "./event";
 import { CardReaderEvent } from "./event";
 
 export abstract class CardDaemon {
     protected card_reader: EventEmitter;
 
-    public constructor() {
-        this.card_reader = new Devices();
+    public constructor(card_reader: EventEmitter) {
+        this.card_reader = card_reader;
     }
 
     public start(): void {
@@ -16,6 +15,9 @@ export abstract class CardDaemon {
     }
 
     protected setup_card_listeners(event: CardReaderEvent): void {
+        if (event === undefined || event.device === undefined) {
+            return;
+        }
         console.log(`Detected card reader "${event.device}"`);
         event.device.on("card-inserted", (event: CardEvent) => this.on_card_inserted(event));
         event.device.on("card-removed", (event: CardEvent) => this.on_card_removed(event));

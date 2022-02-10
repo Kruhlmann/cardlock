@@ -33,7 +33,7 @@
         "pretty": false,
         "skipLibCheck": false,
         "skipDefaultLibCheck": true,
-        "types": ["node"],
+        "types": ["node", "@types/jest"],
         "typeRoots": ["./src/typings"]
   }
 }
